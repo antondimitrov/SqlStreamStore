@@ -171,49 +171,51 @@
         [Fact]
         public async Task Can_subscribe_to_a_stream_from_end()
         {
-            using (var fixture = GetFixture())
+            Func<Task> act = async () =>
             {
-                using (var eventStore = await fixture.GetEventStore())
+                using (var fixture = GetFixture())
                 {
-                    string streamId1 = "stream-1";
-                    await AppendEvents(eventStore, streamId1, 10);
-
-                    string streamId2 = "stream-2";
-                    await AppendEvents(eventStore, streamId2, 10);
-
-                    var receiveEvents = new TaskCompletionSource<StreamEvent>();
-                    int receivedCount = 0;
-                    using (var subscription = await eventStore.SubscribeToStream(
-                        streamId1,
-                        StreamVersion.End,
-                        streamEvent =>
-                        {
-                            _testOutputHelper.WriteLine($"Received event {streamEvent.StreamId} {streamEvent.StreamVersion} {streamEvent.Checkpoint}");
-                            receivedCount++;
-                            if (streamEvent.StreamVersion == 11)
-                            {
-                                receiveEvents.SetResult(streamEvent);
-                            }
-                            return Task.CompletedTask;
-                        }))
+                    using (var eventStore = await fixture.GetEventStore())
                     {
-                        await AppendEvents(eventStore, streamId1, 2);
+                        string streamId1 = "stream-1";
+                        await AppendEvents(eventStore, streamId1, 10);
 
-                        var allEventsPage = await eventStore.ReadAllForwards(0, 30);
-                        foreach(var streamEvent in allEventsPage.StreamEvents)
+                        string streamId2 = "stream-2";
+                        await AppendEvents(eventStore, streamId2, 10);
+
+                        var receiveEvents = new TaskCompletionSource<StreamEvent>();
+                        int receivedCount = 0;
+                        using (var subscription = await eventStore.SubscribeToStream(
+                            streamId1,
+                            StreamVersion.End,
+                            streamEvent =>
+                            {
+                                _testOutputHelper.WriteLine(
+                                    $"Received event {streamEvent.StreamId} {streamEvent.StreamVersion} {streamEvent.Checkpoint}");
+                                receivedCount++;
+                                if (streamEvent.StreamVersion == 11)
+                                {
+                                    receiveEvents.SetResult(streamEvent);
+                                }
+                                return Task.CompletedTask;
+                            }))
                         {
-                            _testOutputHelper.WriteLine(streamEvent.ToString());
+                            await AppendEvents(eventStore, streamId1, 2);
+
+                            var receivedEvent = await receiveEvents.Task.WithTimeout();
+
+                            receivedCount.ShouldBe(2);
+                            subscription.StreamId.ShouldBe(streamId1);
+                            receivedEvent.StreamId.ShouldBe(streamId1);
+                            receivedEvent.StreamVersion.ShouldBe(11);
+                            subscription.LastVersion.ShouldBeGreaterThan(0);
                         }
-
-                        var receivedEvent = await receiveEvents.Task.WithTimeout();
-
-                        receivedCount.ShouldBe(2);
-                        subscription.StreamId.ShouldBe(streamId1);
-                        receivedEvent.StreamId.ShouldBe(streamId1);
-                        receivedEvent.StreamVersion.ShouldBe(11);
-                        subscription.LastVersion.ShouldBeGreaterThan(0);
                     }
                 }
+            };
+            for (int i = 0; i < 10; i++)
+            {
+                await act();
             }
         }
 
