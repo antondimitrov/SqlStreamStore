@@ -45,6 +45,7 @@ task RunTests -depends Compile {
 
     Run-Tests "SqlStreamStore.Tests"
     Run-Tests "SqlStreamStore.MsSql.Tests"
+	Run-Tests "SqlStreamStore.SQLite.Tests"
 }
 
 task ILMerge -depends Compile {

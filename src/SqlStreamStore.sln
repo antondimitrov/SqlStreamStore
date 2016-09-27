@@ -1,6 +1,7 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlStreamStore.Tests", "SqlStreamStore.Tests\SqlStreamStore.Tests.csproj", "{F3FB96CF-4A3D-448D-A25E-6BC66E370BF6}"
 EndProject
@@ -27,6 +28,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetEventstoreExploratoryTests", "GetEventstoreExploratoryTests\GetEventstoreExploratoryTests.csproj", "{2E25DAFA-D0C8-4EB8-BA00-33E8CC8B6DAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadTests", "LoadTests\LoadTests.csproj", "{E7397C6F-7837-4362-A7F7-20F255ACD48A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlStreamStore.SQLite", "SqlStreamStore.SQLite\SqlStreamStore.SQLite.csproj", "{C4717805-F352-4A84-B9C1-D1801957CB45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlStreamStore.SQLite.Tests", "SqlStreamStore.SQLite.Tests\SqlStreamStore.SQLite.Tests.csproj", "{14032586-2DE1-43B8-8843-A834F337F55F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +63,14 @@ Global
 		{E7397C6F-7837-4362-A7F7-20F255ACD48A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7397C6F-7837-4362-A7F7-20F255ACD48A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7397C6F-7837-4362-A7F7-20F255ACD48A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4717805-F352-4A84-B9C1-D1801957CB45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4717805-F352-4A84-B9C1-D1801957CB45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4717805-F352-4A84-B9C1-D1801957CB45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4717805-F352-4A84-B9C1-D1801957CB45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14032586-2DE1-43B8-8843-A834F337F55F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14032586-2DE1-43B8-8843-A834F337F55F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14032586-2DE1-43B8-8843-A834F337F55F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14032586-2DE1-43B8-8843-A834F337F55F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
